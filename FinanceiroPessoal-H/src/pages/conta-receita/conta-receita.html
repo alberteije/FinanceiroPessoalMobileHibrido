@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Contas de Receita</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="!selectedItem && operacao != 2" padding>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of items">
+        <button ion-item (click)="editItem($event, item)">
+          <ion-icon [name]="item.icon" item-left></ion-icon>
+          {{item.codigo}} | {{item.descricao}}
+        </button>
+        <ion-item-options side="left">
+          <button ion-button color="danger" (click)="deleteItem($event, item)">
+            <ion-icon name="trash"></ion-icon>
+            Excluir
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
+
+  <div *ngIf="selectedItem" padding>
+    <ion-label *ngIf="operacao == 3">Você está editando o código <b>{{selectedItem.codigo}}</b></ion-label>
+    <ion-label *ngIf="operacao == 4">Tem certeza que deseja excluir o item <b>{{selectedItem.codigo}}</b>?</ion-label>
+    <ion-list>
+      <ion-item>
+        <ion-icon [name]="selectedItem.icon" item-left></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Código</ion-label>
+        <ion-input type="text" [(ngModel)]="selectedItem.codigo" name="codigoOld"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Descrição</ion-label>
+        <ion-input type="text" [(ngModel)]="selectedItem.descricao" name="descricaoOld"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div *ngIf="operacao == 3">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button full (click)="cancel()">Cancelar</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button full (click)="save()">Salvar</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div *ngIf="operacao == 4">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button full (click)="cancel()">Cancelar</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button block (click)="delete()">Excluir</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div *ngIf="operacao == 2" padding>
+    <ion-label>Você está inserindo um novo item</ion-label>
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Código</ion-label>
+        <ion-input type="text" [(ngModel)]="contaReceita.CODIGO" name="codigoNew"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Descrição</ion-label>
+        <ion-input type="text" [(ngModel)]="contaReceita.DESCRICAO" name="descricaoNew"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button full (click)="cancel()">Cancelar</button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button full (click)="save()">Salvar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="addItem($event, item)"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

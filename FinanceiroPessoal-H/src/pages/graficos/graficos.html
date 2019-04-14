@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Gráficos</ion-title>
+
+    <div padding>
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Mês/Ano:</ion-label>
+          <ion-datetime (ionChange)="carregarDados()" displayFormat="MM/YYYY" name="mesAnoSelecionado" min="2017-01" max="2020-12" [(ngModel)]="mesAnoSelecionado"></ion-datetime>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding *ngIf="mesAnoSelecionado != null">
+    <h2>Gráfico de Receitas</h2>
+    <ion-grid>
+      <ion-row *ngFor="let item of itemsReceita">
+        <ion-col>
+          {{ item.codigo }} | {{ item.descricao }}
+        </ion-col>
+        <ion-col>
+          <ion-img style="background-color: cadetblue;"
+                        alt="" width="{{ item.percentual * 2 }}" height="16" src="assets/img/bar1.png"></ion-img> {{ item.valor | currency:'BRL':true }} [{{ item.percentual }}%]
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div padding *ngIf="mesAnoSelecionado != null">
+    <h2>Gráfico de Despesas</h2>
+    <ion-grid>
+      <ion-row *ngFor="let item of itemsDespesa">
+        <ion-col>
+          {{ item.codigo }} | {{ item.descricao }}
+        </ion-col>
+        <ion-col>
+          <ion-img style="background-color: cadetblue;"
+                        alt="" width="{{ item.percentual * 2 }}" height="16" src="assets/img/bar1.png"></ion-img> {{ item.valor | currency:'BRL':true }} [{{ item.percentual }}%]
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

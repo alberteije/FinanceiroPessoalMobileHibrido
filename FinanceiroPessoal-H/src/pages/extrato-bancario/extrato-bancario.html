@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Extrato Bancário</ion-title>
+
+    <div padding>
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Mês/Ano:</ion-label>
+          <ion-datetime displayFormat="MM/YYYY" name="mesAnoSelecionado" min="2017-01" max="2020-12" [(ngModel)]="mesAnoSelecionado"></ion-datetime>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of items">
+        <button ion-item (click)="editItem($event, item)">
+          <h1>{{ item.numeroReferencia }}</h1>
+          <h2>{{ item.historico }}</h2>
+          <h2>{{ item.dataTransacao | date:'dd/MM/yyyy' }}</h2>
+          <h2 [ngClass]="item.conciliado=='-' ? 'Debito' : 'Credito'">{{ item.valor | currency:'BRL':true }}</h2>
+        </button>
+        <ion-item-options side="left">
+          <button ion-button color="danger" (click)="deleteItem($event, item)">
+            <ion-icon name="trash"></ion-icon>
+            Excluir
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-grid *ngIf="mesAnoSelecionado != null">
+      <ion-row>
+        <ion-col col-6>
+          <button ion-button full (click)="selecionarArquivo()">Selecionar OFX</button>
+        </ion-col>
+        <ion-col col-6>
+          <button ion-button full (click)="carregarDados()">Carregar Dados</button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-label style="text-align:center;" stacked *ngIf="arquivoOfx != null">Arquivo OFX Selecionado</ion-label>
+      </ion-row>
+      <ion-row *ngIf="items.length>0">
+        <ion-label style="text-align:center; color:#387ef5;" stacked>Créditos: {{ totalCredito | currency:'BRL':true }}</ion-label> <ion-label style="text-align:center; color:#f53d3d;" stacked>Débitos: {{ totalDebito | currency:'BRL':true }}</ion-label>
+      </ion-row>
+      <ion-row *ngIf="items.length>0">
+        <ion-label style="text-align:center;" stacked>Saldo: {{ saldo | currency:'BRL':true }}</ion-label>
+      </ion-row>
+      <ion-row>
+        &nbsp;
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-fab right bottom *ngIf="items.length>0">
+    <button ion-fab color="light" (click)="exportarLancamentos()"><ion-icon name="log-out"></ion-icon></button>
+  </ion-fab>
+</ion-content>

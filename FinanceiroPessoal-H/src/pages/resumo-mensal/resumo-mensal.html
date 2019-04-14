@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Resumo Mensal</ion-title>
+
+    <div padding>
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Mês/Ano:</ion-label>
+          <ion-datetime (ionChange)="carregarDados()" displayFormat="MM/YYYY" name="mesAnoSelecionado" min="2017-01" max="2020-12" [(ngModel)]="mesAnoSelecionado"></ion-datetime>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div padding>
+
+    <ion-list *ngIf="mesAnoSelecionado != null">
+
+      <ion-list-header>
+        Receitas
+      </ion-list-header>
+
+      <ion-item *ngFor="let item of itemsReceita">
+        {{ item.codigo }} | {{ item.descricao }}
+        <div item-right>
+          {{ item.valor | currency:'BRL':true }}
+        </div>
+      </ion-item>
+
+      <ion-item-divider style="text-align:right;">
+        Total de Receitas: {{ totalCredito | currency:'BRL':true }}
+      </ion-item-divider>
+
+      <ion-list-header>
+        Despesas
+      </ion-list-header>
+      <ion-item *ngFor="let item of itemsDespesa">
+        {{ item.codigo }} | {{ item.descricao }}
+        <div item-right>
+          {{ item.valor | currency:'BRL':true }}
+        </div>
+      </ion-item>
+      <ion-item-divider style="text-align:right;">
+        Total de Despesas: {{ totalDebito | currency:'BRL':true }}
+      </ion-item-divider>
+      <ion-item-divider style="text-align:right;">
+        &nbsp;
+      </ion-item-divider>
+      <ion-item-divider style="text-align:right;">
+        Saldo: {{ saldo | currency:'BRL':true }}
+      </ion-item-divider>
+
+    </ion-list>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,11 @@
+{
+  "android": {
+    "release": {
+      "keystore": "c:\\t2ti\\t2tiandroid.keystore",
+      "storePassword": "12345678",
+      "alias": "t2tiandroid",
+      "password": "12345678",
+      "keystoreType": ""
+    }
+  }
+}
