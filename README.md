@@ -12,7 +12,7 @@
 						Configure a qualidade de exibição para "automático" ou selecione a melhor qualidade (HD).
 						<br />
 						<br />
-	<h2><i>[Project Personal Financial System Mobile in Production]</i></h2>
+	<h2><i>[Project Personal Financial System Mobile for Production]</i></h2>
 <i>[This project was developed for a training that can be seen in the following link: http://t2ti.com/curso/mobile/financeiro-pessoal-h/. The project is available for download in the Play Store and was developed for production. You can download the source code and make the changes you want. If you want to learn step by step how to develop the application, you can purchase the course (in portugueses only).
 <br /><br />
 Here's a video featuring the project. Set the display quality to "automatic" or select the best quality (HD).]</i>
